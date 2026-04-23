@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>솔라시 포럼 소개</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:     #F9BEC7;
+  --pink-lt:  #FDE8EC;
+  --pink-dk:  #D4607A;
+  --cream:    #FDF6F0;
+  --black:    #1A1A1A;
+  --white:    #FFFFFF;
+  --gray:     #888888;
+  --sans: 'Noto Sans KR', sans-serif;
+}
+
+body {
+  background: #D8CFC8;
+  font-family: var(--sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 0 100px;
+}
+
+.card {
+  width: 1080px;
+  height: 1350px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 100px !important;
+}
+.card + .card { margin-top: 4px; }
+
+/* 도트 */
+.fp { display: flex; gap: 8px; align-items: center; }
+.fp span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.fp .on  { background: var(--black); width: 30px; border-radius: 999px; }
+.fp .off { background: rgba(0,0,0,.15); }
+.fp .off-wh { background: rgba(255,255,255,.3); }
+.fp .on-wh { background: #fff; width: 30px; border-radius: 999px; }
+
+/* 태그 */
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 12px 32px; border-radius: 999px;
+  font-size: 22px; font-weight: 700;
+  align-self: flex-start; white-space: nowrap;
+  margin-bottom: 24px;
+}
+.tag-black { background: var(--black); color: var(--pink); }
+.tag-pink  { background: var(--pink); color: var(--black); }
+.tag-cream { background: var(--cream); color: var(--black); }
+
+/* 캐릭터 */
+.chars { display: flex; gap: 8px; align-items: flex-end; }
+.chars img { height: 180px; width: auto; object-fit: contain; display: block; }
+
+/* ═══ 카드 1 — 표지 ═══ */
+#c01 { background: var(--cream); justify-content: space-between; }
+.c01-badge { font-size: 22px; padding: 12px 32px; background: var(--black); color: var(--pink); border-radius: 999px; align-self: flex-start; font-weight: 700; }
+.c01-brand { font-size: 84px; font-weight: 900; color: var(--pink-dk); line-height: 1.1; margin-bottom: 12px; }
+.c01-title { font-size: 150px; font-weight: 900; line-height: 1.1; letter-spacing: -.05em; color: var(--black); }
+.c01-desc { font-size: 32px; font-weight: 400; line-height: 1.7; color: var(--gray); margin-top: 40px; }
+
+/* ═══ 카드 2 — 이름의 뜻 ═══ */
+#c02 { background: var(--pink); justify-content: space-between; }
+.c02-head { font-size: 72px; font-weight: 900; line-height: 1.2; color: var(--black); margin-bottom: 12px; }
+.c02-sub { font-size: 28px; color: rgba(0,0,0,.6); }
+.c02-row { display: flex; align-items: center; gap: 40px; padding: 50px 0; border-bottom: 2px solid rgba(0,0,0,.1); }
+.c02-letter { font-size: 130px; font-weight: 900; color: var(--black); min-width: 200px; }
+.c02-kr { font-size: 42px; font-weight: 700; }
+.c02-en { font-size: 24px; color: rgba(0,0,0,.5); }
+
+/* ═══ 카드 3 — 왜 만들었나 ═══ */
+#c03 { background: var(--cream); justify-content: space-between; }
+.c03-q { font-size: 26px; font-weight: 700; color: var(--gray); }
+.c03-quote { font-size: 52px; font-weight: 700; line-height: 1.35; color: var(--black); border-left: 8px solid var(--pink-dk); padding-left: 45px; }
+.c03-sub { font-size: 28px; color: #444; padding-left: 53px; line-height: 1.75; margin-top: 30px; }
+
+/* ═══ 카드 4 — 문제의식 ═══ */
+#c04 { background: var(--pink-lt); justify-content: space-between; }
+.c04-head { font-size: 68px; font-weight: 900; line-height: 1.2; color: var(--black); }
+.c04-head em { color: var(--pink-dk); font-style: normal; }
+.c04-text { font-size: 32px; line-height: 1.8; color: rgba(255,255,255,.7); margin: 30px 0; }
+.c04-hl { background: #2A2A2A; border-left: 8px solid var(--pink); padding: 40px; border-radius: 0 20px 20px 0; }
+.c04-hl p { font-size: 32px; font-weight: 700; line-height: 1.6; color: var(--pink); }
+
+/* ═══ 카드 5 — 어떻게 ═══ */
+#c05 { background: var(--pink-lt); justify-content: space-between; }
+.c05-head { font-size: 70px; font-weight: 900; line-height: 1.2; color: var(--black); }
+.c05-head em { font-style: normal; color: var(--pink-dk); font-size: 70px; font-weight: 900; }
+.c05-row { display: flex; gap: 40px; padding: 40px 0; border-bottom: 2px solid rgba(0,0,0,.1); }
+.c05-num { width: 64px; height: 64px; background: var(--black); color: var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; flex-shrink: 0; }
+.c05-title { font-size: 36px; font-weight: 700; margin-bottom: 10px; }
+.c05-desc { font-size: 28px; line-height: 1.65; color: #444; }
+
+/* ═══ 카드 6 — 참여 안내 ═══ */
+#c06 { background: var(--pink); justify-content: space-between; }
+.c06-head { font-size: 84px; font-weight: 900; line-height: 1.1; color: var(--black); }
+.c06-text { font-size: 32px; line-height: 1.8; color: rgba(0,0,0,.7); }
+.c06-box { background: var(--black); border-radius: 30px; padding: 36px 50px; margin-top: 20px; }
+.c06-mail { font-size: 38px; font-weight: 700; color: var(--pink); }
+
+/* ═══ 카드 7 — 마무리 ═══ */
+#c07 { background: var(--pink); justify-content: space-between; }
+.c07-brand { font-size: 110px; font-weight: 900; color: var(--black); line-height: 1.1; }
+.c07-title { font-size: 110px; font-weight: 900; line-height: 1.1; color: var(--black); }
+.c07-title em { font-style: normal; color: #fff; }
+.c07-text { font-size: 32px; line-height: 1.8; color: rgba(0,0,0,.7); margin-top: 30px; }
+
+/* 공통 푸터 */
+.c01-footer, .c02-footer, .c03-footer, .c04-footer, .c05-footer, .c06-footer, .c07-footer {
+  display: flex; justify-content: space-between; align-items: center; margin-top: 40px;
+}
+.c01-org, .c02-org, .c03-org, .c04-org, .c05-org, .c06-footer-org, .c07-org { font-size: 18px; font-weight: 700; color: rgba(0,0,0,.3); }
+
+/* ══ 저장 버튼 ══ */
+#dl-btn {
+  position: fixed; bottom: 36px; right: 36px; z-index: 9999;
+  display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
+}
+#dl-status {
+  background: rgba(0,0,0,.8); color: #fff;
+  font-size: 14px; font-weight: 700;
+  padding: 10px 20px; border-radius: 999px;
+  display: none; white-space: nowrap;
+  font-family: var(--sans);
+}
+#dl-all {
+  background: var(--black); color: var(--pink);
+  border: none; border-radius: 999px;
+  padding: 18px 36px; font-size: 17px;
+  font-weight: 700; cursor: pointer;
+  font-family: var(--sans);
+}
+</style>
+</head>
+<body>
+
+
+<!-- 카드 1 — 표지 (크림 + together) -->
+<div class="card" id="c01">
+  <div class="c01-badge">✨ 노동·시민사회 연대 포럼</div>
+  <div class="c01-body">
+    <div class="c01-brand">솔라시</div>
+    <div class="c01-title">안녕<br>하세요!</div>
+    <div class="c01-desc">Solidarity of Labor and Civic society<br>2023년부터 시작된 연대의 무대</div>
+  </div>
+  <div class="c01-footer">
+    <div class="c01-org">(사)솔라시 추진단</div>
+    <div style="display:flex;align-items:flex-end;gap:20px;">
+      <div class="fp">
+        <span class="on"></span>
+        <span class="off"></span><span class="off"></span>
+        <span class="off"></span><span class="off"></span>
+        <span class="off"></span>
+      </div>
+      <div class="chars">
+        <img src="together.png" alt="도레미파">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 카드 2 — 이름의 뜻 (핑크 → 캐릭터 없음) -->
+<div class="card" id="c02">
+  <span class="tag tag-black">🎵 이름에 담긴 뜻</span>
+  <div class="c02-head">'솔라시'는<br>이런 뜻이에요</div>
+  <div class="c02-sub">세 단어의 앞자를 따서 만든 이름</div>
+  <div class="c02-rows">
+    <div class="c02-row">
+      <div class="c02-letter">Sol</div>
+      <div><div class="c02-kr">연대</div><div class="c02-en">Solidarity</div></div>
+    </div>
+    <div class="c02-row">
+      <div class="c02-letter">La</div>
+      <div><div class="c02-kr">노동</div><div class="c02-en">Labor</div></div>
+    </div>
+    <div class="c02-row">
+      <div class="c02-letter">Ci</div>
+      <div><div class="c02-kr">시민사회</div><div class="c02-en">Civic society</div></div>
+    </div>
+  </div>
+  <div class="c02-footer">
+    <div class="c02-org">(사)솔라시 추진단</div>
+    <div class="fp">
+      <span class="off"></span><span class="on"></span>
+      <span class="off"></span><span class="off"></span><span class="off"></span>
+      <span class="off"></span><span class="off"></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- 카드 3 — 문제의식 + 솔라시 희망 (합본, 검정) -->
+<div class="card" id="c03" style="background:var(--black);justify-content:space-between;">
+  <div>
+    <span class="tag tag-pink" style="margin-bottom:32px;">🤔 왜 만들었죠?</span>
+    <div style="font-size:44px;font-weight:700;line-height:1.4;color:rgba(255,255,255,.5);border-left:6px solid rgba(255,255,255,.2);padding-left:36px;">
+      공익을 위해 일하면서도<br>점점 '각자도생'하고 있어요
+    </div>
+    <div style="font-size:26px;color:rgba(255,255,255,.4);line-height:1.75;margin-top:20px;padding-left:42px;">
+      민주화가 진행될수록 노동은 성장하고 시민사회는 다양해졌지만,<br>서로 간의 소통·교류·연대의 기반은 점점 취약해지고 있어요.
+    </div>
+  </div>
+
+  <div style="background:#fff;border-radius:28px;padding:52px 56px;">
+    <div style="font-size:22px;font-weight:700;color:var(--pink-dk);margin-bottom:20px;letter-spacing:.02em;">솔라시의 대답 🌱</div>
+    <div style="font-size:52px;font-weight:900;line-height:1.35;color:var(--black);letter-spacing:-.03em;">
+      솔라시는 이 현실을 넘어<br>노동과 시민사회가 함께하는<br><span style="color:var(--pink-dk);">연대의 무대</span>를 만들려는 기획입니다
+    </div>
+  </div>
+
+  <div class="c04-footer" style="border-top:2px solid rgba(255,255,255,.08);padding-top:24px;">
+    <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2);">(사)솔라시 추진단</div>
+    <div style="display:flex;align-items:flex-end;gap:20px;">
+      <div class="fp">
+        <span class="off-wh"></span><span class="off-wh"></span>
+        <span class="on-wh"></span>
+        <span class="off-wh"></span><span class="off-wh"></span><span class="off-wh"></span>
+      </div>
+      <div class="chars">
+        <img class="sm" src="mipa3.png" alt="미파 확성기">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 카드 5 — 어떻게 (연핑크 + 미파 보드) -->
+<div class="card" id="c04">
+  <span class="tag tag-black">🚀 어떻게 하나요?</span>
+  <div class="c05-head">모두가 <em>주체</em>가 되는<br>정례적인 연대 공간</div>
+  <div class="c05-body">
+    <div class="c05-row">
+      <div class="c05-num">1</div>
+      <div>
+        <div class="c05-title">전국 + 지역 순환 운영</div>
+        <div class="c05-desc">홀수 년도엔 전국대회, 짝수 년도엔 지역별 대회로 진행해요</div>
+      </div>
+    </div>
+    <div class="c05-row">
+      <div class="c05-num">2</div>
+      <div>
+        <div class="c05-title">개방형 참여 포럼</div>
+        <div class="c05-desc">참여자가 직접 기획을 제안하고 원하는 프로그램에 자유롭게 참여해요</div>
+      </div>
+    </div>
+    <div class="c05-row">
+      <div class="c05-num">3</div>
+      <div>
+        <div class="c05-title">일상의 연대·상호부조</div>
+        <div class="c05-desc">단순 행사가 아닌, 연중 이어지는 연대의 관계를 만들어가요</div>
+      </div>
+    </div>
+  </div>
+  <div class="c05-footer">
+    <div class="c05-org">(사)솔라시 추진단</div>
+    <div style="display:flex;align-items:flex-end;gap:20px;">
+      <div class="fp">
+        <span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span>
+        <span class="on"></span>
+        <span class="off"></span><span class="off"></span>
+      </div>
+      <div class="chars">
+        <img class="sm" src="mipa1.png" alt="미파 보드">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 카드 6 — 참여 안내 (크림 + 도레 마이크) -->
+<div class="card" id="c05">
+  <span class="tag tag-black">🙌 함께해요!</span>
+  <div class="c06-head">공익<br>단체라면<br>누구나</div>
+  <div class="c06-body">
+    <div class="c06-text">노동조합, 시민사회단체, 마을공동체,<br>사회적경제 등 <strong>공익을 위해 활동하는<br>단체라면 언제든 참여 가능해요.</strong><br>문은 항상 활짝 열려 있습니다!</div>
+    <div class="c06-box">
+      <div class="c06-mail">📧 sollaci2023@gmail.com</div>
+      <div class="c06-org-sub">(사)솔라시 추진단 · sollaci.net</div>
+    </div>
+  </div>
+  <div class="c06-footer">
+    <div class="c06-footer-org">(사)솔라시 추진단</div>
+    <div style="display:flex;align-items:flex-end;gap:20px;">
+      <div class="fp">
+        <span class="off"></span><span class="off"></span>
+        <span class="off"></span><span class="off"></span><span class="off"></span>
+        <span class="on"></span><span class="off"></span>
+      </div>
+      <div class="chars">
+        <img class="sm" src="dore3.png" alt="도레 마이크">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 카드 7 — 마무리 (핑크 → 미파만, 도레 핑크라 제외) -->
+<div class="card" id="c06">
+  <div>
+    <div class="c07-brand">솔라시</div>
+    <div class="c07-title">함께라서<br><em>더 멀리</em><br>갑니다.</div>
+    <div class="c07-div"></div>
+    <div class="c07-text">노동과 시민사회가 함께 노래하는 곳, 솔라시.<br><strong>정례적인 연대의 장과 문화를 만드는 것</strong>이<br>우리의 목표입니다.</div>
+    <div class="c07-tag">#솔라시 #노동시민사회연대 #Sollaci</div>
+  </div>
+  <div class="c07-footer">
+    <div class="c07-org">(사)솔라시 추진단 · sollaci.net</div>
+    <div style="display:flex;align-items:flex-end;gap:20px;">
+      <div class="fp">
+        <span class="off"></span><span class="off"></span><span class="off"></span>
+        <span class="off"></span><span class="off"></span><span class="off"></span>
+        <span class="on"></span>
+      </div>
+      <div class="chars">
+        <img class="sm" src="mipa4.png" alt="미파 점프">
+        <img class="sm" src="mipa5.png" alt="미파 만세">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 저장 버튼 -->
+<div id="dl-btn">
+  <div id="dl-status"></div>
+  <button id="dl-all">📥 PNG 전체 저장 (ZIP)</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(function(){
+  const btn = document.getElementById('dl-all');
+  const status = document.getElementById('dl-status');
+  const cards = [
+    { id: 'c01', name: '01_표지' },
+    { id: 'c02', name: '02_이름의뜻' },
+    { id: 'c03', name: '03_왜만들었나' },
+    { id: 'c04', name: '04_어떻게' },
+    { id: 'c05', name: '05_참여안내' },
+    { id: 'c06', name: '06_마무리' },
+  ];
+  async function toDataURL(src) {
+    const res = await fetch(src);
+    const blob = await res.blob();
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  btn.addEventListener('click', async function(){
+    btn.disabled = true; btn.style.opacity = '.5';
+    status.style.display = 'block';
+
+    status.textContent = '이미지 로딩 중…';
+    const imgs = document.querySelectorAll('.chars img');
+    for(const img of imgs){
+      if(img.src.startsWith('data:')) continue;
+      try {
+        img.src = await toDataURL(img.src);
+      } catch(e) {}
+    }
+
+    const zip = new JSZip();
+    for(let i = 0; i < cards.length; i++){
+      const el = document.getElementById(cards[i].id);
+      if(!el) continue;
+      status.textContent = `렌더링 중… ${i+1} / ${cards.length}`;
+      const canvas = await html2canvas(el, {
+        scale: 1, useCORS: true, allowTaint: true,
+        logging: false, imageTimeout: 0,
+        width: 1080, height: 1350,
+        scrollX: -window.scrollX, scrollY: -window.scrollY
+      });
+      const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+      zip.file(`솔라시_카드뉴스_${cards[i].name}.png`, blob);
+    }
+    status.textContent = 'ZIP 압축 중…';
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a');
+    a.download = '솔라시_카드뉴스.zip';
+    a.href = URL.createObjectURL(zipBlob);
+    a.click();
+    status.textContent = '✅ 완료!';
+    btn.disabled = false; btn.style.opacity = '1';
+    setTimeout(() => { status.style.display = 'none'; }, 3000);
+  });
+})();
+</script>
+
+</body>
+</html>
